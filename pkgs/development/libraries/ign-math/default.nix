@@ -1,13 +1,14 @@
 { stdenv, fetchurl, pcre, zlib, perl }:
 
-let version = "5.1.3";
+let version = "1.0.0";
 in
 stdenv.mkDerivation rec {
-  name = "qpdf-${version}";
+  name = "ignition-math-${version}";
 
   src = fetchurl {
-    url = "mirror://sourceforge/qpdf/qpdf/${version}/${name}.tar.gz";
-    sha256 = "1lq1v7xghvl6p4hgrwbps3a13ad6lh4ib3myimb83hxgsgd4n5nm";
+    #url = "mirror://sourceforge/qpdf/qpdf/${version}/${name}.tar.gz";
+    url = "http://gazebosim.org/distributions/ign-math/releases/${name}.tar.bz2";
+    sha256 = "5c15bbafdab35d1e0b2f9e43ea13fc665e29c19530c94c89b92a86491128b30a";
   };
 
   nativeBuildInputs = [ perl ];
@@ -25,10 +26,10 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   meta = with stdenv.lib; {
-    homepage = http://qpdf.sourceforge.net/; 
-    description = "A C++ library and set of programs that inspect and manipulate the structure of PDF files";
-    license = licenses.artistic2;
-    maintainers = with maintainers; [ abbradar ];
+    homepage = http://ignitionrobotics.org/libraries/math;
+    description = "Math library by Ingition Robotics, created for the Gazebo project";
+    license = licenses.apache2;
+    maintainers = with maintainers; [ pxc ];
     platforms = platforms.all;
   };
 }

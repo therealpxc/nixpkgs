@@ -1,17 +1,18 @@
 { stdenv, fetchurl, cmake, mesa, freeglut }:
 
 stdenv.mkDerivation rec {
-  name = "bullet-2.80"; # vdrift 2012-07-22 doesn't build with 2.81
-  rev = "2531";
+  ver = "2.83.7";
+  name = "bullet-${ver}";
   src = fetchurl {
-    url = "http://bullet.googlecode.com/files/${name}-rev${rev}.tgz";
-    sha256 = "0dig6k88jz5y0cz6dn186vc4l96l4v56zvwpsp5bv9f5wdwjskj6";
+    url = "https://github.com/bulletphysics/bullet3/archive/${ver}.tar.gz";
+    sha256 = "00d1d8f206ee85ffd171643ac8e72f9f4e0bf6dbf3d4ac55f4495cb168b51243";
   };
 
   buildInputs = [ cmake mesa freeglut ];
   configurePhase = ''
-    cmake -DBUILD_SHARED_LIBS=ON -DBUILD_EXTRAS=OFF -DBUILD_DEMOS=OFF \
-      -DCMAKE_INSTALL_PREFIX=$out .
+    cmake -DBUILD_SHARED_LIBS=ON -DBUILD_EXTRAS=OFF -DBUILD_BULLET2_DEMOS=OFF \
+          -DBUILD_OPENGL3_DEMOS=OFF -DBUILD_UNIT_TESTS=OFF -DBUILD_BULLET3=OFF \
+          -DCMAKE_INSTALL_PREFIX=$out .
   '';
 
   meta = {

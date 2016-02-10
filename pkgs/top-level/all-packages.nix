@@ -1954,6 +1954,8 @@ let
 
   ifuse = callPackage ../tools/filesystems/ifuse/default.nix { };
 
+  ign_math2 = callPackage ../development/libraries/ign-math { };
+
   ihaskell = callPackage ../development/tools/haskell/ihaskell/wrapper.nix {
     inherit (haskellPackages) ihaskell ghcWithPackages;
 
@@ -5008,6 +5010,8 @@ let
   scala = scala_2_11;
 
   sdcc = callPackage ../development/compilers/sdcc { };
+
+  sdformat = callPackage ../development/libraries/sdformat { };
 
   smlnjBootstrap = callPackage ../development/compilers/smlnj/bootstrap.nix { };
   smlnj = if stdenv.isDarwin

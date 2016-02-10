@@ -1,35 +1,27 @@
-{ stdenv, fetchurl, pcre, zlib, perl }:
+{ stdenv, fetchurl, cmake }:
 
-let version = "1.0.0";
+let
+  version = "2.3.0";
 in
 stdenv.mkDerivation rec {
-  name = "ignition-math-${version}";
+  name = "ignition-math2-${version}";
 
   src = fetchurl {
-    #url = "mirror://sourceforge/qpdf/qpdf/${version}/${name}.tar.gz";
     url = "http://gazebosim.org/distributions/ign-math/releases/${name}.tar.bz2";
-    sha256 = "5c15bbafdab35d1e0b2f9e43ea13fc665e29c19530c94c89b92a86491128b30a";
+    sha256 = "1a2jgq6allcxg62y0r61iv4hgxkfr1whpsxy75hg7k85s7da8dpl";
   };
 
-  nativeBuildInputs = [ perl ];
-
-  buildInputs = [ pcre zlib ];
-
-  postPatch = ''
-    patchShebangs qpdf/fix-qdf
+  configurePhase = ''
+    cmake -DCMAKE_INSTALL_PREFIX=$out .
   '';
 
-  preCheck = ''
-    patchShebangs qtest/bin/qtest-driver
-  '';
-
-  doCheck = true;
+  buildInputs = [ cmake ];
 
   meta = with stdenv.lib; {
     homepage = http://ignitionrobotics.org/libraries/math;
     description = "Math library by Ingition Robotics, created for the Gazebo project";
     license = licenses.apache2;
-    maintainers = with maintainers; [ pxc ];
+    maintainers = with maintainers; [ therealpxc ];
     platforms = platforms.all;
   };
 }

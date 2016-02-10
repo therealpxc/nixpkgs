@@ -1,0 +1,15 @@
+{ stdenv, fetchurl, cmake }:
+let version = "3.0.0";
+in stdenv.mkDerivation rec {
+  name = "tinyxmltwo-${version}";
+  src = fetchurl {
+    url = "https://github.com/leethomason/tinyxml2/archive/${version}.tar.gz";
+    sha256 = "0ispg7ngkry8vhzzawbq42y8gkj53xjipkycw0rkhh487ras32hj";
+  };
+
+  configurePhase = ''
+    cmake -DCMAKE_INSTALL_PREFIX=$out .
+  '';
+
+  buildInputs = [ cmake ];
+}

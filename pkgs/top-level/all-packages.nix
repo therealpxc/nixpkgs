@@ -1954,7 +1954,9 @@ let
 
   ifuse = callPackage ../tools/filesystems/ifuse/default.nix { };
 
-  ign_math2 = callPackage ../development/libraries/ign-math { };
+  ignition-math2 = callPackage ../development/libraries/ignition-math-2 { };
+
+  ignition-transport = callPackage ../development/libraries/ignition-transport { };
 
   ihaskell = callPackage ../development/tools/haskell/ihaskell/wrapper.nix {
     inherit (haskellPackages) ihaskell ghcWithPackages;

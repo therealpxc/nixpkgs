@@ -4,10 +4,10 @@ let
   version = "2.3.0";
 in
 stdenv.mkDerivation rec {
-  name = "ignition-math2-${version}";
+  name = "ign-math2-${version}";
 
   src = fetchurl {
-    url = "http://gazebosim.org/distributions/ign-math/releases/${name}.tar.bz2";
+    url = "http://gazebosim.org/distributions/ign-math/releases/ignition-math2-${version}.tar.bz2";
     sha256 = "1a2jgq6allcxg62y0r61iv4hgxkfr1whpsxy75hg7k85s7da8dpl";
   };
 

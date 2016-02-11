@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, cmake, boost, ruby_1_9, ign_math2, tinyxml }:
+{ stdenv, fetchurl, cmake, boost, ruby_1_9, ignition-math2, tinyxml }:
 
 let
   version = "4.0.0";
@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [
-    cmake boost ruby ign_math2 tinyxml
+    cmake boost ruby ignition-math2 tinyxml
   ];
 
   configurePhase = ''

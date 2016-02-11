@@ -1602,6 +1602,8 @@ let
 
   gawp = goPackages.gawp.bin // { outputs = [ "bin" ]; };
 
+  gazebo = callPackage ../applications/science/misc/gazebo { };
+
   gbdfed = callPackage ../tools/misc/gbdfed {
     gtk = gtk2;
   };

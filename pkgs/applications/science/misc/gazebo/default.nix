@@ -1,22 +1,30 @@
-{ stdenv, fetchurl, cmake, pkgconfig, boost, protobuf, gdal freeimage,  openal, 
-  xorg_sys_opengl, strategoPackages.sdf, tbb, ogre, tinyxml_2, graphviz,
-  libtar, glxinfo, hdf5, libav, libusb, bullet, libxslt, gts, ruby, ign_math2,
-  
+{ stdenv, fetchurl, cmake, pkgconfig, boost, protobuf, gdal, freeimage,  openal,
+  xorg_sys_opengl, tbb, ogre, tinyxml_2, graphviz,
+  libtar, glxinfo, hdf5, libav, libusb, bullet, libxslt, gts, ruby, ignition-math2,
+  pythonPackages, utillinux,
+
   # these deps are hidden; cmake doesn't catch them
-  sdformat, curl, tinyxml, x11 }:
+  sdformat, curl, tinyxml, kde4, x11 }:
 
 let
-  version = "7.0.0"
+  version = "7.0.0";
 in stdenv.mkDerivation rec {
   name = "gazebo-${version}";
-  version = "0.0.1";
-  src = ./.;
-  rootDeps = with pkgs; [
+
+  src = fetchurl {
+    url = "http://osrf-distributions.s3.amazonaws.com/gazebo/releases/${name}.tar.bz2";
+    sha256 = "127q2g93kvmak2b6vhl13xzg56h09v14s4pki8wv7aqjv0c3whbl";
+  };
+
+  configurePhase = ''
+    cmake -DENABLE_TESTS_COMPILATION=False -DCMAKE_INSTALL_PREFIX=$out .
+  '';
+
+  buildInputs = [
     cmake pkgconfig boost protobuf
     gdal freeimage
     openal
     xorg_sys_opengl
-    strategoPackages.sdf
     tbb
     ogre
     tinyxml_2
@@ -30,18 +38,15 @@ in stdenv.mkDerivation rec {
     libxslt
     gts
     ruby
-    ign_math2
+    ignition-math2
     sdformat
+    pythonPackages.pyopengl
 
     # hidden deps
     curl
     tinyxml
     x11
-  ];
+    kde4.qt4
+  ] ++ stdenv.lib.optional stdenv.isLinux utillinux;
 
-  pythonDeps = with pkgs.python27Packages; [
-    pyopengl
-  ];
-
-  buildInputs = rootDeps ++ pythonDeps ++ pkgs.lib.optional stdenv.isLinux pkgs.utillinux;
 }

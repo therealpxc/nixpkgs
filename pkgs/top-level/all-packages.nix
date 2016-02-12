@@ -8678,7 +8678,7 @@ let
 
   tinyxml2 = callPackage ../development/libraries/tinyxml/2.6.2.nix { };
 
-  tinyxml_2 = callPackage ../development/libraries/tinyxml-2/default.nix { };
+  tinyxml-2 = callPackage ../development/libraries/tinyxml-2/default.nix { };
 
   tk = tk-8_6;
 

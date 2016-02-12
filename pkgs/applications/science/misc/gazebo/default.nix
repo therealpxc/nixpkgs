@@ -1,5 +1,5 @@
 { stdenv, fetchurl, cmake, pkgconfig, boost, protobuf, gdal, freeimage,  openal,
-  xorg_sys_opengl, tbb, ogre, tinyxml_2, graphviz,
+  xorg_sys_opengl, tbb, ogre, tinyxml-2, graphviz,
   libtar, glxinfo, hdf5, libav, libusb, bullet, libxslt, gts, ruby, ignition-math2,
   pythonPackages, utillinux,
 
@@ -27,14 +27,14 @@ in stdenv.mkDerivation rec {
     xorg_sys_opengl
     tbb
     ogre
-    tinyxml_2
+    tinyxml-2
     graphviz
     libtar
     glxinfo
     hdf5
     libav
     libusb
-    bullet
+#    bullet
     libxslt
     gts
     ruby

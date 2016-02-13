@@ -16,9 +16,14 @@ in stdenv.mkDerivation rec {
     sha256 = "127q2g93kvmak2b6vhl13xzg56h09v14s4pki8wv7aqjv0c3whbl";
   };
 
-  configurePhase = ''
-    cmake -DENABLE_TESTS_COMPILATION=False -DCMAKE_INSTALL_PREFIX=$out .
-  '';
+  enableParallelBuilding = true; # gazebo needs this so bad
+  cmakeFlags = [
+    "-DENABLE_TESTS_COMPILATION=False"
+  ];
+
+#  configurePhase = ''
+#    cmake -DENABLE_TESTS_COMPILATION=False
+#  '';
 
   buildInputs = [
     cmake pkgconfig boost protobuf
@@ -34,7 +39,7 @@ in stdenv.mkDerivation rec {
     hdf5
     libav
     libusb
-#    bullet
+    bullet
     libxslt
     gts
     ruby

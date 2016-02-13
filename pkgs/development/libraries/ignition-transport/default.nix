@@ -12,9 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "08qyd70vlymms1g4smblags9f057zsn62xxrx29rhd4wy8prnjsq";
   };
 
-  configurePhase = ''
-    cmake -DCMAKE_INSTALL_PREFIX=$out .
-  '';
+#  configurePhase = ''
+#    cmake -DCMAKE_INSTALL_PREFIX=$out .
+#  '';
 
   buildInputs = [ cmake protobuf zeromq cppzmq pkgconfig
     utillinux # we need utillinux/e2fsprogs uuid/uuid.h

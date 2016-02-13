@@ -11,9 +11,9 @@ stdenv.mkDerivation rec {
     sha256 = "1a2jgq6allcxg62y0r61iv4hgxkfr1whpsxy75hg7k85s7da8dpl";
   };
 
-  configurePhase = ''
-    cmake -DCMAKE_INSTALL_PREFIX=$out .
-  '';
+#  configurePhase = ''
+#    cmake -DCMAKE_INSTALL_PREFIX=$out .
+#  '';
 
   buildInputs = [ cmake ];
 

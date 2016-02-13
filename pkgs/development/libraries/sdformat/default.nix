@@ -11,11 +11,12 @@ stdenv.mkDerivation rec {
     sha256 = "b0f94bb40b0d83e35ff250a7916fdfd6df5cdc1e60c47bc53dd2da5e2378163e";
   };
 
+  enableParallelBuilding = true;
   buildInputs = [
     cmake boost ruby ignition-math2 tinyxml
   ];
 
-  configurePhase = ''
-    cmake -DCMAKE_INSTALL_PREFIX=$out .
-  '';
+#  configurePhase = ''
+#    cmake -DCMAKE_INSTALL_PREFIX=$out .
+#  '';
 }

@@ -1926,7 +1926,11 @@ let
 
   ignition-math2 = callPackage ../development/libraries/ignition-math-2 { };
 
-  ignition-transport = callPackage ../development/libraries/ignition-transport { };
+  ignition-transport0 = callPackage ../development/libraries/ignition-transport/0.9.0.nix { };
+
+  ignition-transport1 = callPackage ../development/libraries/ignition-transport/1.0.1.nix { };
+
+  ignition-transport = ignition-transport0;
 
   ihaskell = callPackage ../development/tools/haskell/ihaskell/wrapper.nix {
     inherit (haskellPackages) ihaskell ghcWithPackages;

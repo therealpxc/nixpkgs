@@ -1,24 +1,19 @@
 { stdenv, fetchurl, cmake, pkgconfig, utillinux,
-   protobuf, zeromq, cppzmq }:
+  protobuf, zeromq, cppzmq,
+  version, src    # parametrize version and src so we can easily have pkgs
+                  # for different versions
+  , ...
+}:
 
-let
-  version = "1.0.1";
-in
 stdenv.mkDerivation rec {
   name = "ign-transport-${version}";
+  inherit src;
 
-  src = fetchurl {
-    url = "http://gazebosim.org/distributions/ign-transport/releases/ignition-transport-${version}.tar.bz2";
-    sha256 = "08qyd70vlymms1g4smblags9f057zsn62xxrx29rhd4wy8prnjsq";
-  };
-
-#  configurePhase = ''
-#    cmake -DCMAKE_INSTALL_PREFIX=$out .
-#  '';
-
-  buildInputs = [ cmake protobuf zeromq cppzmq pkgconfig
+  buildInputs = [ cmake protobuf zeromq pkgconfig
     utillinux # we need utillinux/e2fsprogs uuid/uuid.h
   ];
+
+  propagatedBuildInputs = [ cppzmq ];
 
   meta = with stdenv.lib; {
     homepage = http://ignitionrobotics.org/libraries/math;

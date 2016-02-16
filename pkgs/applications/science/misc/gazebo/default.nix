@@ -1,20 +1,20 @@
 { stdenv, fetchurl, cmake, pkgconfig, boost, protobuf, freeimage
-  ,xorg_sys_opengl, tbb, ogre, tinyxml-2
-  ,libtar, glxinfo,  libusb, libxslt, ruby, ignition-math2
-  ,pythonPackages, utillinux
+  , xorg_sys_opengl, tbb, ogre, tinyxml-2
+  , libtar, glxinfo,  libusb, libxslt, ruby, ignition-math2
+  , pythonPackages, utillinux
 
   # these deps are hidden; cmake doesn't catch them
-  sdformat, curl, tinyxml, kde4, x11
-  ,ignition-transport, withIgnitionTransport ? true
-  ,libav, withLibAvSupport ? true
-  ,openal, withAudioSupport ? false
-  ,withQuickBuild ? false, withHeadless ? false, withLowMemorySupport ? false
-  ,doxygen, withDocs ? true
-  ,bullet, withBulletEngineSupport ? false
-  ,graphviz, withModelEditorSchematicView ? true # graphviz needed for this view
-  ,gdal, withDigitalElevationTerrainsSupport ? true
-  ,gts, withConstructiveSolidGeometrySupport ? true
-  ,hdf5, withHdf5Support ? true
+  , sdformat, curl, tinyxml, kde4, x11
+  , ignition-transport, withIgnitionTransport ? true
+  , libav, withLibAvSupport ? true
+  , openal, withAudioSupport ? false
+  , withQuickBuild ? false, withHeadless ? false, withLowMemorySupport ? false
+  , doxygen, withDocs ? true
+  , bullet, withBulletEngineSupport ? false
+  , graphviz, withModelEditorSchematicView ? true # graphviz needed for this view
+  , gdal, withDigitalElevationTerrainsSupport ? true
+  , gts, withConstructiveSolidGeometrySupport ? true
+  , hdf5, withHdf5Support ? true
 }: with stdenv.lib;
 
 let

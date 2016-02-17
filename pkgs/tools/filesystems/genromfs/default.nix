@@ -11,10 +11,9 @@ stdenv.mkDerivation rec {
     sha256 = "0q6rpq7cmclmb4ayfyknvzbqysxs4fy8aiahlax1sb2p6k3pzwrh";
   };
 
-  preBuild = ''
-    sed -i 's|/usr|$out|' Makefile
+  configurePhase = ''
+    substituteInPlace Makefile --replace "prefix = /usr" "prefix = $out"
   '';
-  #  buildInputs = [  ];
 
   meta = with stdenv.lib; {
     homepage = "";

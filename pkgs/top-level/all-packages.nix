@@ -1642,6 +1642,8 @@ let
 
   gengetopt = callPackage ../development/tools/misc/gengetopt { };
 
+  genromfs = callPackage ../tools/filesystems/genromfs { };
+
   getmail = callPackage ../tools/networking/getmail { };
 
   getopt = callPackage ../tools/misc/getopt { };

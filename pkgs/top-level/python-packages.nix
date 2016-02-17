@@ -5018,6 +5018,22 @@ in modules // {
     };
   });
 
+  empy = buildPythonPackage rec {
+    version = "3.3.2";
+    name = "empy-${version}";
+    src = pkgs.fetchurl {
+      url = "https://pypi.python.org/packages/source/E/EmPy/${name}.tar.gz";
+      sha256 = "177avx6iv9sq2j2iak2il5lxqq0k4np7mpv5gasqmi3h4ypidw4r";
+    };
+
+    meta = {
+      description = "A powerful and robust templating system for Python.";
+      homepage = "https://pypi.python.org/pypi/EmPy";
+      license = licenses.lgpl2;
+      maintainers = [ pxc ];
+    };
+  };
+
 
   evdev = buildPythonPackage rec {
     version = "0.4.7";

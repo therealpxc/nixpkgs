@@ -2,7 +2,7 @@
   ./config/nix.nix
   ./config/packages.nix
   ./misc/assertions.nix
-  ./misc/legacynixpkgsconfig.nix
+  ./misc/legacy-nixpkgs-config.nix
   ./nixup/activation.nix
   ./nixup/build.nix
   ./nixup/imperativenix.nix

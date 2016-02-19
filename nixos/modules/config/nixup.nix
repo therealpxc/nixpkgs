@@ -6,13 +6,11 @@ with lib;
 
   options = {
 
-    nixup.enable = mkOption {
-      type = types.bool;
+    nixup.enable = mkEnableOption {
       default = true;
       description = ''
-        Whether to enable NixUP into NixOS or not. If
-        "true", then the NixUP environment will be activated
-        automatically on login.
+        Whether to enable NixUP. If enabled, the NixUP environment
+        will be activated automatically on next login.
       '';
     };
 

@@ -1,7 +1,7 @@
 { stdenv, fetchurl, cmake, pkgconfig, boost, protobuf, freeimage
   , xorg_sys_opengl, tbb, ogre, tinyxml-2
   , libtar, glxinfo,  libusb, libxslt, ruby, ignition-math2
-  , pythonPackages, utillinux
+  , pythonPackages, utillinux, ogrepaged
 
   # these deps are hidden; cmake doesn't catch them
   , sdformat, curl, tinyxml, kde4, x11

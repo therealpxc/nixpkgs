@@ -10,7 +10,7 @@ with lib;
       type = types.bool;
       default = true;
       description = ''
-        Whether to integrate NixUP into NixOS or not. If
+        Whether to enable NixUP into NixOS or not. If
         "true", then the NixUP environment will be activated
         automatically on login.
       '';

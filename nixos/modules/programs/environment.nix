@@ -6,12 +6,6 @@
 
 with lib;
 
-let
-
-  cfg = config;
-
-in
-
 {
 
   config = {
@@ -55,15 +49,15 @@ in
          export TERM=$TERM
 
          unset ASPELL_CONF
-         for i in ${concatStringsSep " " (reverseList cfg.environment.profiles)} ; do
+         for i in ${concatStringsSep " " (reverseList config.environment.profiles)} ; do
            if [ -d "$i/lib/aspell" ]; then
              export ASPELL_CONF="dict-dir $i/lib/aspell"
            fi
          done
 
          export NIX_USER_PROFILE_DIR="/nix/var/nix/profiles/per-user/$USER"
-         export NIX_PROFILES="${concatStringsSep " " (reverseList cfg.environment.profiles)}"
-         ${optionalString cfg.nixup.enable "export NIXUP_CONFIG=\"$XDG_CONFIG_HOME/nixup/profile.nix\""}
+         export NIX_PROFILES="${concatStringsSep " " (reverseList config.environment.profiles)}"
+         ${optionalString config.nixup.enable "export NIXUP_CONFIG=\"$XDG_CONFIG_HOME/nixup/profile.nix\""}
       '';
 
   };

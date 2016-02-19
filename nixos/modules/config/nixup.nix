@@ -2,12 +2,6 @@
 
 with lib;
 
-let
-
-  cfg = config;
-
-in
-
 {
 
   options = {
@@ -25,7 +19,7 @@ in
   };
 
 
-  config = mkIf cfg.nixup.enable {
+  config = mkIf config.nixup.enable {
 
     environment.systemPackages = [ pkgs.nixup ];
 

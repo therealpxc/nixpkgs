@@ -39,6 +39,7 @@ in stdenv.mkDerivation rec {
     xorg_sys_opengl
     tbb
     ogre
+    ogrepaged   # needed in PX4
     tinyxml-2
     libtar
     glxinfo

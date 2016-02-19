@@ -15,8 +15,6 @@ with lib;
         NIXPKGS_CONFIG = "/etc/nix/nixpkgs-config.nix";
         PAGER = mkDefault "less -R";
         EDITOR = mkDefault "nano";
-        XDG_CONFIG_HOME = "$HOME/.config";
-        XDG_DATA_HOME = "$HOME/.local/share";
       };
 
     environment.profiles =

@@ -17,7 +17,7 @@ in
 
 {
   options = {
-    user.resourceFiles = mkOption rec {
+    user.files = mkOption rec {
       default = {};
       type = types.loaOf (types.submodule options);
       example = literalExample ''
@@ -98,9 +98,10 @@ in
 
     nixup.buildCommands = ''
       mkdir -p $out
-      ln -s ${pkgs.runCommand "nixup-resource-collection" { } ("mkdir $out\n" + (concatMapStringsSep "\n" (rc: rc.setupScript) (attrValues config.user.resourceFiles)))} $out/resources
+      ln -s ${pkgs.runCommand "nixup-resource-collection" { } ("mkdir $out\n"
+      + (concatMapStringsSep "\n" (rc: rc.setupScript) (attrValues config.user.files)))} $out/resources
 
-      echo "${concatMapStringsSep "\n" (rc: rc.target) (attrValues config.user.resourceFiles)}" > $out/resourceTargets
+      echo "${concatMapStringsSep "\n" (rc: rc.target) (attrValues config.user.files)}" > $out/resourceTargets
 
       ##
       ## create resource linking/unlinking/switching commands

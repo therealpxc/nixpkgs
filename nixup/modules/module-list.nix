@@ -6,7 +6,7 @@
   ./nixup/activation.nix
   ./nixup/build.nix
   ./nixup/imperativenix.nix
-  ./nixup/resourceFiles.nix
+  ./nixup/resource-files.nix
   ./nixup/switch-systemd-services.nix
   ./nixup/systemd.nix
   ./nixup/tools.nix

@@ -17,7 +17,16 @@ stdenv.mkDerivation rec {
   inherit name;
 
   enableParallelBuilding = true;
+
   buildInputs = [
     cmake boost ruby ignition-math2 tinyxml
   ];
+
+  meta = with stdenv.lib; {
+    homepage = http://sdformat.org/;
+    description = "Ignition Robotics library for SDF, a description format for robot simulators, visualization, and control";
+    license = licenses.asl20;
+    maintainers = with maintainers; [ therealpxc ];
+    platforms = platforms.all;
+  };
 }

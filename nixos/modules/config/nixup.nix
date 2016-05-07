@@ -6,13 +6,11 @@ with lib;
 
   options = {
 
-    nixup.enable = mkEnableOption {
-      default = true;
-      description = ''
+    nixup.enable = mkEnableOption
+      ''
         Whether to enable NixUP. If enabled, the NixUP environment
         will be activated automatically on next login.
       '';
-    };
 
   };
 

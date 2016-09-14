@@ -41,6 +41,13 @@ buildGoPackage rec {
     ln -s $out/share/go/src/github.com/junegunn/fzf $out/share/vim-plugins/${name}
   '';
 
+  preFixup = stdenv.lib.optionalString stdenv.isDarwin ''
+    # fixes cycle between $out and $bin
+    # otool -l shows that the binary includes an LC_RPATH to $out/lib
+    # it seems safe to remove that since but the directory does not exist.
+    install_name_tool -delete_rpath $out/lib $bin/bin/fzf
+  '';
+
   meta = with stdenv.lib; {
     homepage = https://github.com/junegunn/fzf;
     description = "A command-line fuzzy finder written in Go";

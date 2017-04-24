@@ -4702,6 +4702,10 @@ with pkgs;
 
   wego = callPackage ../applications/misc/wego { };
 
+  wemux = callPackage ../tools/misc/wemux { };
+
+  wemux-user = callPackage ../tools/misc/wemux { wemuxEtcPrefix = "\"$\{HOME}\"/.config"; wemuxBinName = "wemux-user"; };
+
   wal_e = callPackage ../tools/backup/wal-e { };
 
   watchman = callPackage ../development/tools/watchman { };

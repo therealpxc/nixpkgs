@@ -179,6 +179,11 @@ in if (vimAlias == false && configure == null) then neovim else stdenv.mkDerivat
     for item in ${neovim}/bin/*; do
       ln -s $item $out/bin/
     done
+
+    mkdir -p $out/share
+    for item in ${neovim}/share/*; do
+      ln -s $item $out/share/
+    done
   '' + optionalString vimAlias ''
     ln -s $out/bin/nvim $out/bin/vim
   '' + optionalString (configure != null) ''

@@ -718,6 +718,7 @@ rec {
     };
     dependencies = ["vimproc" "vimshell" "self" "forms"];
 
+    pythonDependencies = with pythonPackages; [ sexpdata websocket_client ];
   };
 
   YUNOcommit-vim = buildVimPluginFrom2Nix { # created by nix#NixDerivation

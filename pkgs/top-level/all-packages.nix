@@ -5286,6 +5286,8 @@ with pkgs;
     bootstrap-chicken = chicken.override { bootstrap-chicken = null; };
   };
 
+  chips = haskellPackages.callPackage ../shells/chips/default.nix { };
+
   egg2nix = callPackage ../development/tools/egg2nix {
     chickenEggs = callPackage ../development/tools/egg2nix/chicken-eggs.nix { };
   };

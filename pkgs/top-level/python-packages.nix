@@ -9806,7 +9806,9 @@ in {
     doCheck = false;
 
     buildInputs = with self; [ unittest2 ];
-    propagatedBuildInputs = with self; [ psutil setuptools bottle batinfo pkgs.hddtemp pysnmp ];
+    # propagatedBuildInputs = with self; [ psutil setuptools bottle pysnmp ]
+    propagatedBuildInputs = with self; [ psutil ]
+      ++ optionals stdenv.buildPlatform.isLinux [ pkgs.hddtemp batinfo ];
 
     preConfigure = ''
       sed -i 's/data_files\.append((conf_path/data_files.append(("etc\/glances"/' setup.py;
@@ -16008,11 +16010,11 @@ in {
 
   psutil = buildPythonPackage rec {
     name = "psutil-${version}";
-    version = "4.3.0";
+    version = "5.2.2";
 
     src = pkgs.fetchurl {
       url = "mirror://pypi/p/psutil/${name}.tar.gz";
-      sha256 = "1w4r09fvn6kd80m5mx4ws1wz100brkaq6hzzpwrns8cgjzjpl6c6";
+      sha256 = "04yx70gnxqybf4civg9mlasb717ykzmjj3aj05abkdgsq106ax24";
     };
 
     # Certain tests fail due to being in a chroot.

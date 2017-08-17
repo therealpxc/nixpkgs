@@ -11,6 +11,8 @@ stdenv.mkDerivation rec {
     sha256 = "03m0ja11w9910z96yi8fzq3436y8xl14q031rdb2w3sapjd54qrj";
   };
 
+  preConfigure = "unset CPP AR AS NM OBJCOPY RANLIB STRIP STRINGS SIZE LD WINDRES";
+  # preConfigure = "unset CPP";
   patches = [ ./disable_updates.patch ];
   postPatch = ''
     sed -i -e 's/CODE_SIGN_IDENTITY = "Developer ID Application"/CODE_SIGN_IDENTITY = ""/g' ./iTerm2.xcodeproj/project.pbxproj

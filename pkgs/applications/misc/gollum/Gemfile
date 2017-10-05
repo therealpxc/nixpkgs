@@ -1,2 +1,17 @@
 source 'https://rubygems.org'
 gem 'gollum'
+
+# AsciiDoc support
+gem 'asciidoctor'
+
+# Creole support
+gem 'creole'
+
+# Mediawiki support
+gem 'wikicloth'
+
+# Org-mode support
+gem 'org-ruby'
+
+# Textile support
+gem 'RedCloth'

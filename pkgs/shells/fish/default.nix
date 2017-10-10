@@ -1,7 +1,7 @@
 { stdenv, fetchurl, coreutils, utillinux,
   nettools, kbd, bc, which, gnused, gnugrep,
   groff, man-db, glibc, libiconv, pcre2,
-  gettext, ncurses, python3
+  gettext, ncurses, python3, fish-foreign-env
 
   , writeText
 
@@ -35,28 +35,58 @@ let
     #     source both, but source the more global configuration files earlier
     #     than the more local ones, so that more local configurations inherit
     #     from but override the more global locations.
-    
+
     if test -f /etc/fish/config.fish
       source /etc/fish/config.fish
     end
-    
+
     #                                                                             #
     ############### ↑ Nix hook for sourcing /etc/fish/config.fish ↑ ###############
   '';
 
   fishPreInitHooks = ''
-    # source nixos environment
+    # source nix environment
     # note that this is required:
     #   1. For all shells, not just login shells (mosh needs this as do some other command-line utilities)
     #   2. Before the shell is initialized, so that config snippets can find the commands they use on the PATH
-    builtin status --is-login
-    or test -z "$__fish_nixos_env_preinit_sourced" -a -z "$ETC_PROFILE_SOURCED" -a -z "$ETC_ZSHENV_SOURCED"
-    and test -f /etc/fish/nixos-env-preinit.fish
-    and source /etc/fish/nixos-env-preinit.fish
-    and set -gx __fish_nixos_env_preinit_sourced 1
+    if builtin status --is-login
+       or test -z "$__fish_nix_env_preinit_sourced" -a -z "$ETC_PROFILE_SOURCED" -a -z "$ETC_ZSHENV_SOURCED"
 
-    test -n "$NIX_PROFILES"
-    and begin
+      set -l nix_env_setup
+      # If we have a configuration provided by a NixOS or Nix-Darwin administrator, prefer it.
+      if test -f /etc/nix/support/set-environment.sh
+        set nix_env_setup /etc/nix/support/set-environment.sh
+      else
+        set -l common_prefix @NIX_STORE@/../var/nix/profiles/default/etc/profile.d
+        set -l script_selection nix.sh
+
+        string match -q (${coreutils}/bin/uname) Darwin
+        # Use `set -U nix_on_darwin_no_daemon` to tell Fish to use the single-user mode script instead
+        and not set -q nix_on_darwin_no_daemon
+        and set script_selection nix-daemon.sh
+
+        set nix_env_setup $common_prefix/$script_selection
+      end
+
+
+      # This happens before $__fish_datadir/config.fish sets fish_function_path, so it is currently
+      # unset. We set it and then completely erase it, leaving its configuration to $__fish_datadir/config.fish
+      set -l original_fish_function_path $fish_function_path
+      set fish_function_path ${fish-foreign-env}/share/fish-foreign-env/functions $__fish_datadir/functions
+
+
+      # source the Nix environment config
+      test -n "$nix_env_setup"
+      and fenv source $nix_env_setup
+
+      # Restore fish_function_path so that it will be correctly set when we return to $__fish_datadir/config.fish (for Nixpkgs' Fish) or the snippet sourcing sequence (for external Fish with, e.g., Nix-Darwin)
+      set fish_function_path $original_fish_function_path
+      test -z "$fish_function_path"; and set -e fish_function_path
+
+      set -gx __fish_nix_env_preinit_sourced 1
+    end
+
+    if test -n "$NIX_PROFILES"
       # We ensure that __extra_* variables are read in $__fish_datadir/config.fish
       # with a preference for user-configured data by making sure the package-specific
       # data comes last. Files are loaded/sourced in encounter order, duplicate
@@ -154,7 +184,12 @@ let
     '' + optionalString useOperatingSystemEtc ''
       tee -a $out/etc/fish/config.fish < ${(writeText "config.fish.appendix" etcConfigAppendixText)}
     '' + ''
-      tee -a $out/share/fish/__fish_build_paths.fish < ${(writeText "__fish_build_paths_suffix.fish" fishPreInitHooks)}
+      # The __nix_preinit_env.fish file is separated out so Nix module systems can tell even
+      # non-Nixpkgs Fish to use this logic.
+      echo 'source $__fish_datadir/__nix_preinit_env.fish' >> $out/share/fish/__fish_build_paths.fish
+      sed -e "s|@NIX_STORE@|$NIX_STORE|" \
+             ${(writeText "__nix_preinit_env.fish.in" fishPreInitHooks)} \
+             > $out/share/fish/__nix_preinit_env.fish
     '';
 
     meta = with stdenv.lib; {
